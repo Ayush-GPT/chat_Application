@@ -1,0 +1,123 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat APP</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+</head>
+<body>
+    <h1 class="room-message"></h1>
+    <div class="window">
+        <div class="chat-message">
+            <div id="output"></div>
+            <div id="feedback"></div>
+        </div>
+        <div class='fields'>
+            <input type="text" id="message" placeholder="Enter message">
+            <button id="send">Send</button>
+        </div>
+    </div>
+    <div class="online">
+        <p class="users-online">Users Online</p>
+        <div class="users">
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+<script src="/chat.js"></script>
+    <script src="/chat.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        // Send message
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            socket.emit('chat message', message);
+            document.getElementById('message').value = '';
+        }
+
+        // Receive message
+        socket.on('chat message', (message) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<p>${message}</p>`;
+        });
+        
+
+
+    var socket = io();
+
+    // Join Room
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const roomname = urlParams.get('roomname');
+
+    socket.emit('joinRoom', { username, roomname });
+
+    // Send message
+    function sendMessage() {
+        const message = document.getElementById('message').value;
+        socket.emit('chat message', message);
+        document.getElementById('message').value = '';
+    }
+
+    // Receive message
+    socket.on('chat message', ({ username, message }) => {
+        const messagesDiv = document.getElementById('messages');
+        messagesDiv.innerHTML += `<p><strong>${username}</strong>: ${message}</p>`;
+    });
+
+
+
+     </script>
+</head>
+<body>
+    <h2>Welcome, <%= username %> to <%= roomname %></h2>
+    <div id="messages"></div>
+    <input type="text" id="message" placeholder="Type your message">
+    <button onclick="sendMessage()">Send</button>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
